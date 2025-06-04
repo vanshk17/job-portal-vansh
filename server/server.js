@@ -26,11 +26,17 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => res.send("API Working"));
 
 app.get("/debug-sentry", function mainHandler(req, res) {
+<<<<<<< HEAD
   throw new Error("My first Sentry error!");
 });
 
 app.post('/webhooks', clerkWebhooks);
 
+=======
+    throw new Error("My first Sentry error!");
+  }); 
+app.post('/webhooks',clerkWebhooks)
+>>>>>>> 55086fe9deb670ac4c9c9de28a40c7cabeb807b8
 
 
 
