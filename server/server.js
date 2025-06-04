@@ -16,28 +16,25 @@ await connectDB()
 
 // Debug logger to check if requests are hitting the server
 app.use((req, res, next) => {
-  console.log(${req.method} ${req.url});
+  console.log(`${req.method} ${req.url}`);
   next();
 });
-
 
 // Routes
 app.get('/', (req, res) => {
   res.send('API Working');
 });
+
 app.get("/debug-sentry", function mainHandler(req, res) {
-    throw new Error("My first Sentry error!");
-  }); 
-app.post('./webhooks',clerkWebhooks)
+  throw new Error("My first Sentry error!");
+}); 
 
-
+app.post('/webhooks', clerkWebhooks)
 
 // Port
 const PORT = process.env.PORT || 5001;
 Sentry.setupExpressErrorHandler(app)
 
-
 app.listen(PORT, () => {
-  console.log(Server is running on port ${PORT});
+  console.log(`Server is running on port ${PORT}`);
 });
-
