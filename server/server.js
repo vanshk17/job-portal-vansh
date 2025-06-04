@@ -1,4 +1,5 @@
-import './config/instrument.js';
+{
+  /*import './config/instrument.js';
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
@@ -41,3 +42,41 @@ Sentry.setupExpressErrorHandler(app)
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export default app;
+*/}
+// server.js
+
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import jobRoutes from './routes/jobs.js';
+import clerkWebhooks from './controllers/clerk.js';
+
+dotenv.config();
+
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+
+// Routes
+app.use('/api/jobs', jobRoutes);
+app.post('/webhooks', clerkWebhooks);  // ✅ Corrected the route path (was './webhooks')
+
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
+
+// ❌ Do NOT use app.listen() with Vercel — Vercel handles this
+// ✅ Instead, export the app for Vercel to use
+export default app;
+
