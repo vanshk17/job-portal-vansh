@@ -1,5 +1,4 @@
-{
-  /*import './config/instrument.js';
+import './config/instrument.js';
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
@@ -17,26 +16,19 @@ await connectDB()
 
 // Debug logger to check if requests are hitting the server
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  console.log(${req.method} ${req.url});
   next();
 });
 
 
 // Routes
-app.get('/', (req, res) => res.send("API Working"));
-
-app.get("/debug-sentry", function mainHandler(req, res) {
-<<<<<<< HEAD
-  throw new Error("My first Sentry error!");
+app.get('/', (req, res) => {
+  res.send('API Working');
 });
-
-app.post('/webhooks', clerkWebhooks);
-
-=======
+app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
   }); 
-app.post('/webhooks',clerkWebhooks)
->>>>>>> 55086fe9deb670ac4c9c9de28a40c7cabeb807b8
+app.post('./webhooks',clerkWebhooks)
 
 
 
@@ -46,43 +38,6 @@ Sentry.setupExpressErrorHandler(app)
 
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(Server is running on port ${PORT});
 });
-
-export default app;
-*/}
-// server.js
-
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import jobRoutes from './routes/jobs.js';
-import clerkWebhooks from './controllers/clerk.js';
-
-dotenv.config();
-
-const app = express();
-
-// Middlewares
-app.use(cors());
-app.use(bodyParser.json());
-
-// Routes
-app.use('/api/jobs', jobRoutes);
-app.post('/webhooks', clerkWebhooks);  // ✅ Corrected the route path (was './webhooks')
-
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
-
-// ❌ Do NOT use app.listen() with Vercel — Vercel handles this
-// ✅ Instead, export the app for Vercel to use
-export default app;
 
