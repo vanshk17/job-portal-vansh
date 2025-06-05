@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../assets/assets";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const Dashboard = () => {
+  const {companyData}=useContext(AppContext)
   const navigate = useNavigate();
 
   return (
@@ -17,12 +19,15 @@ const Dashboard = () => {
             src={assets.logo}
             alt=""
           />
-          <div className="flex items-center gap-3">
-            <p className="max-sm:hidden">Welcome, GreatStack</p>
+          {companyData && (
+            <div className="flex items-center gap-3">
+
+
+            <p className="max-sm:hidden">Welcome, {companyData.name}</p>
             <div className="relative group">
               <img
                 className="w-8 border rounded-full"
-                src={assets.company_icon}
+                src={companyData.image}
                 alt=""
               />
               <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
@@ -32,6 +37,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+          )}
+          
         </div>
       </div>
 

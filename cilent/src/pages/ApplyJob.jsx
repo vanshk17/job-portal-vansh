@@ -89,7 +89,7 @@ function ApplyJob() {
 
         </div>
       </div>
-        <Footer />>
+        <Footer />
     </>
   ): (
     <Loading />

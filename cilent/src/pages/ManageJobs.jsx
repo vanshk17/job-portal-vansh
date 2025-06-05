@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { manageJobsData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ManageJobs = () => {
-    const navigate=useNavigate()
+  const navigate = useNavigate();
+  const [jobs, setJobs] = useState(false);
+  const { backendUrl, companyToken } = useContext(AppContext);
+
+  // Function to fetch company Job Applications data
+  const fetchCompanyJobs = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/company/list-jobs", {
+        headers: { token: companyToken },
+      });
+
+      if (data.success) {
+        setJobs(data.jobsData.reverse());
+        console.log(data.jobsData)
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  };
+  useEffect(()=>{
+    if(companyToken){
+      fetchCompanyJobs()
+    }
+  },[companyToken])
 
   return (
     <div className="container p-4 max-w-5xl">
@@ -14,8 +42,12 @@ const ManageJobs = () => {
             <tr>
               <th className="py-2 px-4 border-b text-left max-sm:hidden ">#</th>
               <th className="py-2 px-4 border-b text-left">Job Title</th>
-              <th className="py-2 px-4 border-b text-left max-sm:hidden">Date</th>
-              <th className="py-2 px-4 border-b text-left max-sm:hidden">Location</th>
+              <th className="py-2 px-4 border-b text-left max-sm:hidden">
+                Date
+              </th>
+              <th className="py-2 px-4 border-b text-left max-sm:hidden">
+                Location
+              </th>
               <th className="py-2 px-4 border-b text-center">Applications</th>
               <th className="py-2 px-4 border-b text-left">Visible</th>
             </tr>
@@ -23,11 +55,19 @@ const ManageJobs = () => {
           <tbody>
             {manageJobsData.map((job, index) => (
               <tr className="text-gray-700" key={index}>
-                <td className="py-2 px-4 border-b max-sm:hidden">{index + 1}</td>
+                <td className="py-2 px-4 border-b max-sm:hidden">
+                  {index + 1}
+                </td>
                 <td className="py-2 px-4 border-b">{job.title}</td>
-                <td className="py-2 px-4 border-b max-sm:hidden">{moment(job.date).format("LL")}</td>
-                <td className="py-2 px-4 border-b max-sm:hidden">{job.location}</td>
-                <td className="py-2 px-4 border-b text-center">{job.applicants}</td>
+                <td className="py-2 px-4 border-b max-sm:hidden">
+                  {moment(job.date).format("LL")}
+                </td>
+                <td className="py-2 px-4 border-b max-sm:hidden">
+                  {job.location}
+                </td>
+                <td className="py-2 px-4 border-b text-center">
+                  {job.applicants}
+                </td>
                 <td>
                   <input className=" scale-125 ml-8" type="checkbox" />
                 </td>
@@ -36,8 +76,13 @@ const ManageJobs = () => {
           </tbody>
         </table>
       </div>
-      <div className='mt-4 flex justify-end'>
-         <button onClick={() => navigate('/dashboard/add-job')} className='bg-black text-white py-2 px-4 rounded'>Add new jobs</button>
+      <div className="mt-4 flex justify-end">
+        <button
+          onClick={() => navigate("/dashboard/add-job")}
+          className="bg-black text-white py-2 px-4 rounded"
+        >
+          Add new jobs
+        </button>
       </div>
     </div>
   );

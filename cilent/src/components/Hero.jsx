@@ -31,7 +31,7 @@ function Hero() {
             
             <div className='max-w-4xl mx-auto bg-white rounded-lg p-2 flex flex-col md:flex-row gap-2 items-center'>
                 <div className='flex items-center bg-gray-50 rounded px-3 py-2 flex-1 w-full'>
-                    <img className='h-4 sm:h-5' src={assets.search_icon} alt="search" className='w-4 h-4 mr-2' />
+                    <img className='h-4 sm:h-5 w-4 mr-2' src={assets.search_icon} alt="search"  />
                     <input 
                         type="text"
                         placeholder='Search for jobs'
@@ -41,7 +41,7 @@ function Hero() {
                 </div>
                 
                 <div className='flex items-center bg-gray-50 rounded px-3 py-2 flex-1 w-full'>
-                    <img className='h-4 sm:h-5' src={assets.location_icon} alt="location" className='w-4 h-4 mr-2' />
+                    <img className='h-4 sm:h-5 w-4 mr-2' src={assets.location_icon} alt="location"  />
                     <input 
                         type="text"
                         placeholder='Location'
