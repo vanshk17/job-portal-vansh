@@ -7,7 +7,6 @@ const router = express.Router()
 // Get user Data
 router.get('/user', getUserData)
 
-
 // Apply for a job
 router.post('/apply', applyForJob)
 
