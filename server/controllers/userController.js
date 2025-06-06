@@ -1,5 +1,6 @@
 import JobApplication from "../models/JobApplications.js"
 import User from "../models/User.js"
+import Job from "../models/Job.js" 
 import {v2 as cloudinary} from 'cloudinary'
 
 // Get user data
@@ -82,7 +83,7 @@ export const updateUserResume = async (req, res) => {
         
         const userId = req.auth.userId
         
-        const resumeFile = req.resumeFile
+        const resumeFile = req.file
         
         const userData = await User.findById(userId)
         
@@ -99,3 +100,4 @@ export const updateUserResume = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+

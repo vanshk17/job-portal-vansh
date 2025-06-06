@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 const ManageJobs = () => {
   const navigate = useNavigate();
@@ -20,21 +21,52 @@ const ManageJobs = () => {
 
       if (data.success) {
         setJobs(data.jobsData.reverse());
-        console.log(data.jobsData)
+        console.log(data.jobsData);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
-  useEffect(()=>{
-    if(companyToken){
-      fetchCompanyJobs()
-    }
-  },[companyToken])
 
-  return (
+  // Function to change Job Visibility
+  const changeJobVisibility = async (id) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/company/change-visibility",
+        {id},
+        {headers: { token: companyToken }}
+      );
+      if (data.success) {
+        toast.success(data.message)
+        fetchCompanyJobs()
+    } 
+    else {
+        toast.error(data.message)
+    }
+
+} catch (error) {
+    toast.error(error.message)
+}
+
+}
+
+  useEffect(() => {
+    if (companyToken) {
+      fetchCompanyJobs();
+    }
+  }, [companyToken]);
+
+  return jobs ? jobs.length ===0 ? 
+  (
+    <div className='flex items-center justify-center h-[70vh]'>
+    <p className='text-xl sm:text-2xl'>
+      No Jobs Available or posted
+    </p>
+  </div>
+  
+  ): (
     <div className="container p-4 max-w-5xl">
       <div className="overflow-x-auto">
         <table className="min-h-full bg-white border border-gray-200 max-sm:text-sm">
@@ -53,7 +85,7 @@ const ManageJobs = () => {
             </tr>
           </thead>
           <tbody>
-            {manageJobsData.map((job, index) => (
+            {jobs.map((job, index) => (
               <tr className="text-gray-700" key={index}>
                 <td className="py-2 px-4 border-b max-sm:hidden">
                   {index + 1}
@@ -69,7 +101,12 @@ const ManageJobs = () => {
                   {job.applicants}
                 </td>
                 <td>
-                  <input className=" scale-125 ml-8" type="checkbox" />
+                  <input
+                    onChange={() => changeJobVisibility(job._id)}
+                    className=" scale-125 ml-8"
+                    type="checkbox"
+                    checked={job.visible}
+                  />
                 </td>
               </tr>
             ))}
@@ -85,6 +122,6 @@ const ManageJobs = () => {
         </button>
       </div>
     </div>
-  );
+  ):<Loading />
 };
 export default ManageJobs;
