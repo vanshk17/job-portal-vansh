@@ -2,6 +2,8 @@ import React, { useContext, useRef } from 'react'
 import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 
+
+
 function Hero() {
 
     const{setSearchFilter,setIsSearched}=useContext(AppContext)
