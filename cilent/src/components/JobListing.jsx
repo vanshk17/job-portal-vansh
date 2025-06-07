@@ -52,14 +52,14 @@ const JobListing = () => {
 
 
   return (
-    <div className='container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8'>
+    <div className='container 2xl:px-20 mx-auto flex flex-col lg:flex-row gap-9 py-8'>
       { /* SideBar*/  }
-      <div className='w-full lg:w-1/4 bg-white px-4'>
+      <div className='w-full lg:w-1/4 bg-white px-4 border border-gray-200 rounded-lg shadow-sm h-fit lg:sticky top-24'>
         { /* SearchFilter from Hero Component*/  }
         {
             isSearched && (searchFilter.title!=="" || searchFilter.location !=="" ) && (
                 <>
-                <h3 className='font-medium text-lg mb=-4'>Current Search</h3>
+                <h3 className='font-medium text-lg mb-4'>Current Search</h3>
                 <div className='mb-4  text-gray-600'>
                     {searchFilter.title && (
                         <span className='inline-flex items-center gap-2.5 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded'>
@@ -77,7 +77,7 @@ const JobListing = () => {
                 </>
             )
         }
-        <button onClick={e=>setShowFilter(prev=>!prev)} className='px-6 py-1.5 rounded-border border-gray-400 lg-hidden'>
+        <button onClick={e=>setShowFilter(prev=>!prev)} className="px-6 py-1.5 border border-gray-400 rounded-lg mt-4 lg:hidden text-sm">
             {showFilter ? " Close" : "Filters"}
         </button>
 
@@ -89,7 +89,7 @@ const JobListing = () => {
                 {
                     JobCategories.map((category,index)=>(
                         <li className='flex gap-3 items-center' key={index}>
-                            <input className='scale-125'
+                            <input className='scale-110 accent-blue-500'
                              type="checkbox" 
                              onChange={()=> handleCategoryChange(category)}
                              checked={selectedCategories.includes(category)}
@@ -109,7 +109,7 @@ const JobListing = () => {
                 {
                     JobLocations.map((location,index)=>(
                         <li className='flex gap-3 items-center' key={index}>
-                            <input className='scale-125' type="checkbox" 
+                            <input className='scale-110 accent-blue-500' type="checkbox" 
                             onChange={()=> handleLocationChange(location)}
                             checked={selectedLocations.includes(location)} 
                             />
@@ -138,7 +138,7 @@ const JobListing = () => {
 
             {/*Pagination */}
             {filteredJobs.length > 0 && (
-                <div className='flex items-center justify-center space-x-2 mt-10'>
+                <div className="flex justify-center items-center gap-4 mt-8">
                     <a href='#job-list'>
                         <img onClick={()=> setCurrentPage(Math.max(currentPage-1,1))} src={assets.left_arrow_icon} alt="" />
 

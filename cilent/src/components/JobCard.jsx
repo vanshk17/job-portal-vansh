@@ -8,7 +8,7 @@ const JobCard = ({ job }) => {
 
 
   return (
-    <div className='border p-6 shadow rounded'>
+    <div className="bg-white/90 backdrop-blur-md rounded p-4 shadow-lg transition-transform hover:scale-[1.02]">
       <div className='flex justify-between items-center'>
         <img className='h-8' src={job.companyId.image} alt="" />
       </div>
@@ -19,7 +19,7 @@ const JobCard = ({ job }) => {
       </div>
       <p className='text-gray-500 text-sm mt-4' dangerouslySetInnerHTML={{ __html: job.description.slice(0,150) }}></p>
       <div className='mt-4 flex gap-4 text-sm'>
-      <button onClick={() => {navigate(`/apply-job/${job._id}`);scrollTo(0, 0);}}className="bg-blue-600 text-white px-4 py-2 rounded">Apply now</button>
+      <button onClick={() => {navigate(`/apply-job/${job._id}`);scrollTo(0, 0);}}className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Apply now</button>
 
         <button onClick={()=> {navigate(`/apply-job/${job._id}`);scrollTo(0, 0);}} className='text-gray-500 border border-gray-500 px-4 py-2 rounded'>Learn more</button>
       </div>
