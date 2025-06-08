@@ -1,4 +1,5 @@
-✨ Project: Job Portal : job-portal-pp-front.vercel.app/
+✨ Project: Job Portal : 
+job-portal-pp-front.vercel.app/
 
 A simple and functional job portal application that allows users to:
 
