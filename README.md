@@ -123,18 +123,6 @@ yaml
 Copy
 Edit
 
----
-
-Just copy-paste the above into your `README.md` file and it will render **cleanly aligned and structured** on GitHub. Want help adding demo screenshots, deploy instructions (like Render/Netlify), or badges?
-
-
-
-
-
-
-
-
-Ask ChatGPT
 
 
 <img width="1440" alt="459928191-f40e68d1-9e7d-4acf-8a02-3275a11addcd" src="https://github.com/user-attachments/assets/8636c884-b56b-4cbd-97d8-c9e4d20bb5f3" />
